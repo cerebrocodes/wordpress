@@ -1,7 +1,5 @@
 # Dockerized WordPress
 
-![WordPress and MariaDB Logo](https://i.imgur.com/J5q7X0j.png)
-
 A simple solution to deploy WordPress with MariaDB using Docker. Automatically generates secure credentials and configures the environment.
 
 ## Features
