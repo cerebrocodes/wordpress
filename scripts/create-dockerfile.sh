@@ -32,37 +32,6 @@ cat > "$TARGET_DIR/Dockerfile" <<EOF
 # Dockerfile for WordPress with custom configuration
 FROM wordpress:latest
 
-# Install additional PHP extensions
-RUN apt update && apt install -y \\
-    libpng-dev \\
-    libjpeg-dev \\
-    libfreetype6-dev \\
-    libmagickwand-dev \\
-    libzip-dev\\
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \\
-    && docker-php-ext-install -j\$(nproc) \\
-    mysqli \\
-    pdo_mysql \\
-    gd \\
-    zip \\
-    opcache \\
-    && pecl install imagick \\
-    && docker-php-ext-enable imagick \\
-    && apt clean \\
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy custom php.ini configuration
-COPY php-custom.ini /usr/local/etc/php/conf.d/php-custom.ini
-
-# Set recommended WordPress settings
-RUN { \\
-    echo 'opcache.memory_consumption=128'; \\
-    echo 'opcache.interned_strings_buffer=8'; \\
-    echo 'opcache.max_accelerated_files=4000'; \\
-    echo 'opcache.revalidate_freq=2'; \\
-    echo 'opcache.fast_shutdown=1'; \\
-    } > /usr/local/etc/php/conf.d/opcache-recommended.ini
-
 # Set working directory
 WORKDIR /var/www/html
 
