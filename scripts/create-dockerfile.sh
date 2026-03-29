@@ -33,7 +33,7 @@ cat > "$TARGET_DIR/Dockerfile" <<EOF
 FROM wordpress:latest
 
 # Install additional PHP extensions
-RUN apt-get update && apt-get install -y \\
+RUN apt update && apt install -y \\
     libpng-dev \\
     libjpeg-dev \\
     libfreetype6-dev \\
@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \\
     opcache \\
     && pecl install imagick \\
     && docker-php-ext-enable imagick \\
-    && apt-get clean \\
+    && apt clean \\
     && rm -rf /var/lib/apt/lists/*
 
 # Copy custom php.ini configuration
